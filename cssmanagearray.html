@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>css manage array</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<style>
+.demo {
+	width:100px;
+	height:100px;
+	background-color:gray;
+	display:inline-block;
+	margin: 10px;
+}
+</style>
+<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<div class="demo" :style="{backgroundColor: color}"></div>
+	<div class="demo" :style="myStyle"></div>
+	<div class="demo" :style="[ myStyle, { height: width + 'px' } ]"></div>
+	<hr>
+	<input type="text" v-model="color">
+	<input type="text" v-model="width">
+</div>
+
+<script>
+	new Vue({
+		el: '#app',
+		data: {
+			color: 'gray',
+			width:100
+		},
+		computed: {
+			myStyle: function() {
+				return {
+					backgroundColor: this.color,
+					width: this.width + 'px'
+					};
+			}
+		},
+		watch: {
+			
+		},
+		methods: {
+			
+		}
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Assignment 1</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" type="text/css" href="">
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+<div id="exersise">
+	<p>VueJS is pretty cool - {{ yourName }} ( {{ yourAge }} )</p>
+	<p> {{ yourAgeTripled() }}</p>
+	<p>{{ randomNbr() }}</p>
+
+	<div>
+		<img v-bind:src="imageVue" style="width:100px;">
+	</div>
+
+	<div>
+		<input type="text" v-bind:value="yourName">
+	</div>
+</div>
+
+<script>
+	new Vue({
+		el: '#exersise',
+		data: {
+			yourName: 'Tarrant Cutler',
+			yourAge: '64',
+			imageVue: 'https://pbs.twimg.com/profile_images/875996174305472512/upM71pVR_400x400.jpg'
+		},
+		methods: {
+			yourAgeTripled: function() {
+				return this.yourAge * 3;
+			},
+
+			randomNbr: function() {
+				var i = Math.floor(Math.random()*(1-0+1)+0);
+				return i;
+			}
+		}
+	})
+</script>
+</body>
+</html>

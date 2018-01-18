@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>VueJS</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" type="text/css" href="">
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!-- $event is vuejs reserved word. event object -->
+	<button v-on:click="increase(2, $event)">Click me 1</button>
+	<button v-on:click="counter++">Click me 2</button>
+	<p>{{ counter }}</p>
+	<p>{{ counter * 2 }}</p>
+	<p v-on:mousemove="updateCoordinates">
+		Coordinares: {{ x }} / {{ y  }} 
+		- <span v-on:mousemove.stop="">DEAD SPOT</span>
+	</p>
+	<p>
+		<input type="text" v-on:keyup.enter.space="alertMe">
+	</p>
+</div>	
+<script>
+	new Vue({
+		el: '#app',
+		data: {
+			counter: 0,
+			x:0,
+			y:0
+		},
+		methods: {
+			increase: function(step, event) {
+				this.counter+= step;
+			},
+			updateCoordinates: function(e) {
+				this.x = e.clientX;
+				this.y = e.clientY;
+			},
+			alertMe: function(e) {
+				alert("Yowsa!")
+			}
+		}
+	})
+</script>
+</body>
+</html>

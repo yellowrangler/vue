@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+	<ul>
+		<!-- <li v-for="ingredient in ingredients">{{ingredient}}</li> -->
+		<li v-for="(ingredient, idx) in ingredients">{{ingredient}} ({{ idx }})</li>
+	</ul>
+	<button @click="ingredients.push('spices')">Add New</button>	
+	<hr>
+		<ul>
+			<li v-for="person in persons">
+				<!-- order is important. name is not - so could be (v, k) -->
+				<!-- can get index by adding 3rd argument (v, k, i) -->
+				<!-- using :key (same as v-bind:) to define key may help some issues with for loop updates  -->
+				<span v-for="(value, key) in person">{{ key+ ":  " + value + " | "}}</span>
+			</li>
+	</ul>
+	<hr>
+
+	<span v-for="i in 10"> {{ i }} </span>
+	<hr>
+
+	<template v-for="(ingredient, idx2) in ingredients">
+		<h1>{{ ingredient }}</h1>
+		<p>{{ idx2 }}</p>
+	</template>
+</div>	
+
+<script>
+	new Vue({
+		el: '#app',
+		data: {
+			ingredients: ['meat','fruit','cookies'],
+			persons: [
+			{name: 'Max', age: 27, color: 'red'},
+			{name: 'Tarry', age: 64, color:'green'}
+			]
+		}
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>VueJS</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" type="text/css" href="">
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!-- Vuejs will use @ as v-on: -->
+	<!-- <button v-on:click="counter++">Increase</button> -->
+	<!-- Vuejs will use : as v-bind: -->
+	<button @click="counter++">Increase</button>
+	<button v-on:click="counter--">Decrease</button>
+	<button v-on:click="secondCounter++">Increase Second</button>
+	<p>{{ counter }} | {{ secondCounter }}</p>
+	<!-- Notice noo parentheses on output. Is used like property not function -->
+	<p>{{ result() }} | {{ output }}</p>
+</div>	
+<script>
+	new Vue({
+		el: '#app',
+		data: {
+			counter: 0,
+			secondCounter: 0
+		},
+		computed: {
+			output: function() {
+				console.log("Computed");
+				return this.counter > 5 ? 'Greater 5' : 'Smaller 5';
+			}
+
+		},
+		watch: {
+			// Must match a property in component
+			counter: function(value) {
+				var vm = this;
+				setTimeout(function() {
+					vm.counter = 0;
+				}, 2000);
+			}
+		},
+		methods: {
+			result: function () {
+				console.log("Method");
+				return this.counter > 5 ? 'Greater 5' : 'Smaller 5';
+			}
+		}
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>VueJS</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" type="text/css" href="">
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+	<!-- $event is vuejs reserved word. event object -->
+	<button v-on:click="showAlert">Show Alert</button>
+	<p>
+		<input type="text" v-on:keydown="value = $event.target.value">
+	</p>
+	<p>
+		{{ value }}
+	</p>
+
+	<p>
+		<input type="text" v-on:keydown.enter="value = $event.target.value">
+	</p>
+	<p>
+		{{ value }}
+	</p>
+</div>	
+<script>
+	new Vue({
+		el: '#app',
+		data: {
+			value: ""
+		},
+		methods: {
+			showAlert: function(e) {
+				alert("Here I am");
+			}
+		}
+	})
+</script>
+</body>
+</html>
