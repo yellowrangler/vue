@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<!-- <script type="text/javascript" src="vue.js"></script> -->
+</head>
+<body>
+
+<div id="app">
+  <tnt-cmp></tnt-cmp>
+  <tnt-cmp></tnt-cmp>
+  <tnt-cmp></tnt-cmp>
+</div>
+
+<div id="app2">
+	<hr>
+  <tnt-cmp></tnt-cmp>
+</div>
+
+<script>
+// 	building data externally to be passed means that if changed changed for all instances
+// 	add it to vue instance then diff for all instances
+// var data = { status: 'Critical' } 	
+
+// this is example of local components
+var cmp = {
+    data: function(){
+	    return {status: 'Critical'}	
+	   
+	},
+  	template: '<p>Server Status: {{ status }}</p>'
+};
+
+new Vue({
+	el: "#app",
+	components: {
+		'tnt-cmp': cmp
+	}
+})
+new Vue({
+	el: "#app2"
+})
+</script>
+</body>
+</html>

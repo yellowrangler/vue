@@ -17,6 +17,11 @@
 <div id="app2">
 	<h1>{{ title }}</h1>
 	<button @click="changeTitle">Change title in Vue 2</button>
+
+
+	<hello></hello>
+	<hello></hello>
+
 </div>	
 
 <div id="app3">
@@ -24,10 +29,15 @@
 </div>	
 
 <script>
-	var outsidedata = {
-		title: "Instance 1 title",
-			showParagraph: false
-		};
+// this can be setup and then passed in vue component
+var outsidedata = {
+	title: "Instance 1 title",
+		showParagraph: false
+	};
+
+Vue.component('hello', {
+	template: '<h1>Hello!</h1>'
+});
 
 var vm1 = new Vue({
 		// el: '#app1',
@@ -69,10 +79,19 @@ var vm2 = new Vue({
 		} 
 	});
 
-var vm3 = new Vue({ 
-template: '<h1>Hello!</h1>' })
+var vm3 = new Vue({
+	template: '<h1>Hello!</h1>'
+	});
 
-vm3.$mount('#app3');
+// vm3.$mount('#app3');
+
+// or
+
+// vm3.$mount();
+// document.getElementById('app3').appendChild(vm3.$el);
+
+
+
 </script>
 </body>
 </html>

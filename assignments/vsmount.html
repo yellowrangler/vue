@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+
+<div id="app1">
+	<h1>{{ title }}</h1>
+	<!-- the rf= is a way to setan html element to a seletable refernce managed by Vue -->
+	<button @click="show" ref="MyButton">Show Paragraph</button>
+
+	<p v-if="showParagraph">This is not always visable</p>
+	
+</div>
+
+<div id="app2">
+	<h1>{{ title }}</h1>
+	<button @click="changeTitle">Change title in Vue 2</button>
+</div>	
+
+<div id="app3">
+	 
+</div>	
+
+<script>
+	var outsidedata = {
+		title: "Instance 1 title",
+			showParagraph: false
+		};
+
+var vm1 = new Vue({
+		// el: '#app1',
+		data: outsidedata,
+		methods: {
+			updateTitle: function(title) {
+				this.title = title;
+			},
+			show: function() {
+				this.showParagraph = true;
+				this.updateTitle("The VueJS Instance 1 (Updated)")
+				console.log(this.$refs);
+			}
+		},
+		watch: {
+			title: function() {
+				alert("title 1 has changed");
+			}
+		} 
+	});
+
+// this is way to mount vueinstanc definition
+vm1.$mount("#app1");
+
+// setTimeout(function() {
+// 	vm1.title ="Title 1 Changed by timer";
+// }, 3000);
+
+var vm2 = new Vue({
+		el: '#app2',
+		data: {
+			title: "Instance 2 title"
+		},
+		methods: {
+			changeTitle: function() {
+				// this.title = "Chaged 2!";
+				vm1.title = "Changed 1 from 2";
+			}
+		} 
+	});
+
+var vm3 = new Vue({
+		template: '<h1>Hello</h1>'
+	});
+
+// vm3.$mount('#app3');
+
+// or
+
+vm3.$mount();
+document.getElementById('app3').appendChild(vm3.$el);
+
+
+
+</script>
+</body>
+</html>
