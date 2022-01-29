@@ -22,8 +22,12 @@
         <p>Result: {{ counter }}</p>
         <!-- <input type="text" v-bind:value='name' v-on:input="setName($event, 'Cutler')"> -->
         <input type="text" v-model="name">
-        <button v-on:click="resetInput">Reset Input</button>
-        <p>Your Name: {{ name }}</p>
+        <input type="text" v-model="lastName">
+        <button @click="resetInput">Reset Input</button>
+        <!-- Short cuts v-bind:value (any attribute) can be writted as just :value -->
+        <!-- Short cuts v-on:click (any event name) can be writted as just @click -->
+        <!-- <button v-on:click="resetInput">Reset Input</button> -->
+        <p>Your Name: {{ fullname }}</p>
     </section>
 </body>
 
