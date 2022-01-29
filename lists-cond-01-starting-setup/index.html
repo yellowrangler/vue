@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Course Goals</h1>
+    </header>
+    <section id="user-goals">
+      <h2>My course goals</h2>
+      <input type="text" v-model="enteredGoalValue"/>
+      <button @click="addGoal">Add Goal</button>
+      <!-- You can use show also. Keeps code in html with display of none
+        <p v-show="goals.length === 0">No goals have been added yet - please start adding some!</p>
+      <ul v-show="goals.length === 0"> -->
+      <p v-if="goals.length === 0">No goals have been added yet - please start adding some!</p>
+      <ul v-else>
+        <li v-for="goal, idx in goals" @click="removeGoal(idx)">{{ goal }}</li>
+        <!-- You can also get the index of the item
+            <li v-for="(goal, idx) in goals">{{ goal }}</li> -->
+      </ul>
+      <!-- Example of passing array of objects with v-for
+        <ul>
+          <li
+            v-for="(value, key, idx) in {name: 'Tarry', age: '68'}"> 
+            {{ key }}: {{ value }} - {{ idx }}
+          </li>
+      </ul> 
+        -->
+      <!-- Example of passing number range to loop through with v-for 
+        <ul>
+          <li v-for="num in 10"> {{ num }} </li>
+      </ul> 
+      -->
+    </section>
+  </body>
+</html>
