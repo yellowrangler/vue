@@ -25,8 +25,11 @@
       <ul v-show="goals.length === 0"> -->
       <p v-if="goals.length === 0">No goals have been added yet - please start adding some!</p>
       <ul v-else>
-        <li v-for="goal, idx in goals" @click="removeGoal(idx)">{{ goal }}</li>
-        <!-- You can also get the index of the item
+        <li v-for="goal, idx in goals" :key="goal" @click="removeGoal(idx)">{{ goal }} - {{ idx }}
+            <input type="text" @click.stop>
+        </li>
+        <!-- You can also get the index of the item you must us :key as in the example above so vue wont screw up record .
+            without :key it only understands item by index and if item gets deleted or added to it gets confused
             <li v-for="(goal, idx) in goals">{{ goal }}</li> -->
       </ul>
       <!-- Example of passing array of objects with v-for
