@@ -33,7 +33,17 @@
           class="healthbar__value"></div>
         </div>
       </section>
-      <section id="controls">
+      <section 
+        v-if="winner"
+        class='container'>
+          <h2>Game Over</h2>
+          <h3 v-if="winner === 'monster'">You lost!</h3>
+          <h3 v-else-if="winner === 'player'">You won!</h3>
+          <h3 v-else>It's a draw!</h3>
+      </section>
+      <section 
+        v-if="!winner"
+        id="controls">
         <button 
             @click="attackMonster">
             ATTACK</button>
@@ -41,12 +51,45 @@
             :disabled="mayUseSpecialAttack"
             @click="specialAttackMonster">
             SPECIAL ATTACK</button>
-        <button>HEAL</button>
-        <button>SURRENDER</button>
+        <button
+            @click="healPlayer">
+            HEAL</button>
+        <button
+        @click="surrender">
+        SURRENDER</button>
+      </section>
+      <section 
+        v-if="winner"
+        id="restart"
+        class="container">
+        <button 
+            @click="restart">
+            Restart</button>
       </section>
       <section id="log" class="container">
         <h2>Battle Log</h2>
-        <ul></ul>
+        <ul>
+            <li v-for="logMessage in logMessages">
+                <span
+                    :class="{'log--player':logMessage.actionBy ==='player','log--monster':logMessage.actionBy === 'monster'}">
+                    {{ logMessage.actionBy === 'player' ? 'Player' : 'Monster' }} 
+                </span>
+                <span v-if="logMessage.actionType === 'heal'">
+                    heals himself for 
+                    <span class="log--heal">
+                        {{ logMessage.actionValue }} 
+                    </span>
+                </span>
+                
+                <span v-else>
+                    attacks and deals 
+                    <span class="log--damage">
+                        {{ logMessage.actionValue }} 
+                    </span>
+                </span>
+                
+            </li>
+        </ul>
       </section>
     </div>
   </body>
