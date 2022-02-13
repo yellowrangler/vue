@@ -11,6 +11,8 @@
             <li><strong>Phone:</strong> {{ phoneNumber }}</li>
             <li><strong>Email:</strong> {{ emailAddress }}</li>
         </ul>
+        <!-- <button @click="deleteContact">Delete</button> -->
+        <button @click="$emit('delete-contact', id)">Delete</button>
     </li>
 </template>
 
@@ -49,7 +51,8 @@ export default {
         }
     },
     emits: [
-        'toggleFavorite'
+        'toggle-favorite',
+        'delete-contact'
     ],
     // emits: {
     //     'toggleFavorite': function (id) {  
@@ -74,6 +77,11 @@ export default {
         {
             // this.favorite = !this.favorite;
             this.$emit('toggle-favorite', this.id);
+        },
+        deleteContact() 
+        {
+            // this.favorite = !this.favorite;
+            this.$emit('delete-contact', this.id);
         }
     }
 };
