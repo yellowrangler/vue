@@ -9,25 +9,70 @@
         :role="member.role"
       ></user-item>
     </ul>
+    <router-link to="/teams/t2">Go to team 2</router-link>
   </section>
 </template>
 
 <script>
 import UserItem from '../users/UserItem.vue';
 
+
+// in this code we can change pages by route or props passing teamId
+// watch for remarkes that show execution 
+// 
+// added props: [  'teamId' ], to do by props. B4 id was passed via route
 export default {
+  inject: [ 'users', 'teams' ],
+  props: [  'teamId' ],
   components: {
     UserItem
   },
   data() {
     return {
-      teamName: 'Test',
-      members: [
-        { id: 'u1', fullName: 'Max Schwarz', role: 'Engineer' },
-        { id: 'u2', fullName: 'Max Schwarz', role: 'Engineer' },
-      ],
+      teamName: '',
+      members: []
     };
   },
+  methods: {
+    loadTeamMembers(teamId) {
+      // const teamId = route.params.teamId;  To get id from route. route would be passed in
+      //                                      loadTeamMembers
+      const selectedTeam = this.teams.find(team => team.id === teamId);
+      if (!selectedTeam) {
+        return;
+      }
+
+      const members = selectedTeam.members;
+      const selectedMembers = [];
+      for (const member of members) {
+        const selectedUser = this.users.find(user => user.id === member);
+        selectedMembers.push(selectedUser);
+      }
+
+      this.members = selectedMembers;
+      this.teamName = selectedTeam.name;
+    }
+  },
+  created() {
+    // this.loadTeamMembers(this.$route); this would be used for id passed by route
+    this.loadTeamMembers(this.teamId);
+
+    console.log(this.$route.query);
+  },
+  beforeRouteUpdate(to, from, next) {
+    console.log("In TeamsItem Cmp beforeRouteUpdate");
+    console.log(to, from);
+    next();
+  },
+  watch: {
+    // $route(newRoute) {                  this used for passing id by route
+    //   this.loadTeamMembers(newRoute);
+    // }
+     teamId(newId) {
+      this.loadTeamMembers(newId);
+    }
+    
+  }
 };
 </script>
 
