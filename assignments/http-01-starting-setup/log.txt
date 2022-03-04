@@ -1,0 +1,18 @@
+
+> vue-first-app@0.1.0 serve
+> vue-cli-service serve
+
+ INFO  Starting development server...
+[HPM] Proxy created: [Function: context]  ->  http://10.0.0.71:80
+[HPM] Proxy rewrite rule created: "^/api" ~> "/"
+[HPM] Subscribed to http-proxy events:  [ 'error', 'proxyReq', 'close' ]
+ DONE  Compiled successfully in 5850ms1:41:51 PM
+
+
+  App running at:
+  - Local:   http://localhost:8080/ 
+  - Network: http://10.0.0.71:8080/
+
+  Note that the development build is not optimized.
+  To create a production build, run npm run build.
+

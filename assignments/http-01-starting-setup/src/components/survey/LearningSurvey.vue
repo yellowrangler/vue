@@ -41,6 +41,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -64,32 +65,51 @@ export default {
       //   rating: this.chosenRating,
       // });
 
-      const url = 'http://10.0.0.71/vue/php/updatesurveydata.php';
-      this.systemError = null;
-      fetch(url, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: this.enteredName,
-          rating: this.chosenRating
-        }),
-      })
-      .then(response => {
-        console.log(response);
-        // if (response.ok) {
+
+      // const url = 'http://10.0.0.71/vue/php/updatesurveydata.php';
+      const url = 'http://10.0.0.71/api/updatesurveydata.php';
+      const body = JSON.stringify({
+        name: this.enteredName,
+        rating: this.chosenRating
+        });
+        
+       this.axios.post(url, body)
+        .then((response)  => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+          this.systemError = error.message;
+        })
+
+
+      // const url = 'http://10.0.0.71/vue/php/updatesurveydata.php';
+      // const url = 'http://10.0.0.71/vue/php/updatesurveydata.php';
+      // this.systemError = null;
+      // fetch(url, {
+      //   method: 'POST',
+      //   mode: 'no-cors',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify({
+      //     name: this.enteredName,
+      //     rating: this.chosenRating
+      //   }),
+      // })
+      // .then(response => {
+      //   console.log(response);
+      //   // if (response.ok) {
           
-        // } else {
-        //   throw new Error("There is a problem with our data server. Please try again later!");
-        // }
-        // This is commented out because mode: no-cors ok status will be false
-      })
-      .catch(error => {
-        console.log(error);
-        this.systemError = error.message;
-      });
+      //   // } else {
+      //   //   throw new Error("There is a problem with our data server. Please try again later!");
+      //   // }
+      //   // This is commented out because mode: no-cors ok status will be false
+      // })
+      // .catch(error => {
+      //   console.log(error);
+      //   this.systemError = error.message;
+      // });
 
       this.enteredName = '';
       this.chosenRating = null;

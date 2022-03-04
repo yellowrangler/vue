@@ -41,19 +41,14 @@ export default {
       this.isLoading = true;
       this.systemError = null;
 
-      const url = 'http://10.0.0.71/vue/php/getsurveydata.php';
-      fetch(url)
+      // const url = 'http://10.0.0.71/vue/php/getsurveydata.php';
+      const url = 'http://10.0.0.71/api/getsurveydata.php';
+      this.axios.get(url)
       .then((response)  => {
-        console.log(response);
-        if (response.ok) {
-          return response.json(); 
-        } else {
-          throw new Error("There is a problem with our data server. Please try again later!");
-        }
-      })
-      .then((data) => {
+        console.log(response.data);
         this.isLoading = false;
 
+        const data = response.data;
         const results = [];
         for (const id in data) {
           results.push({
@@ -70,6 +65,37 @@ export default {
         this.isLoading = false;
         this.systemError = "There has been a problem accessing the results. Please try again or try later!";
       })
+
+      // const url = 'http://10.0.0.71/vue/php/getsurveydata.php';
+      // const url = 'http://10.0.0.71/api/getsurveydata.php';
+      // fetch(url)
+      // .then((response)  => {
+      //   console.log(response);
+      //   if (response.ok) {
+      //     return response.json(); 
+      //   } else {
+      //     throw new Error("There is a problem with our data server. Please try again later!");
+      //   }
+      // })
+      // .then((data) => {
+      //   this.isLoading = false;
+
+      //   const results = [];
+      //   for (const id in data) {
+      //     results.push({
+      //       id: id,
+      //       name: data[id].name,
+      //       rating: data[id].rating,
+      //     });
+
+      //     this.results = results;
+      //   }
+      // })
+      // .catch((error) => {
+      //   console.log(error);
+      //   this.isLoading = false;
+      //   this.systemError = "There has been a problem accessing the results. Please try again or try later!";
+      // })
     },
   },
   mounted () {
