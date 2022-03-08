@@ -72,8 +72,13 @@ export default {
         name: this.enteredName,
         rating: this.chosenRating
         });
+        const headers = {
+          'Content-Type': 'application/json'
+        };
         
-       this.axios.post(url, body)
+        this.axios.post(url, body, {
+         headers: headers
+        })
         .then((response)  => {
           console.log(response.data);
         })
@@ -81,7 +86,6 @@ export default {
           console.log(error);
           this.systemError = error.message;
         })
-
 
       // const url = 'http://10.0.0.71/vue/php/updatesurveydata.php';
       // const url = 'http://10.0.0.71/vue/php/updatesurveydata.php';
