@@ -16,13 +16,13 @@ $enterdate = $datetime;
 //
 // db connect
 //
-$modulecontent = "Unable to get survey  data";
+$modulecontent = "Unable to get coach  data";
 include ('mysqlconnect.php');
 
 //---------------------------------------------------------------
-// get all current survey  data
+// get all current coach  data
 //---------------------------------------------------------------
-$sql = "SELECT id, name, rating  FROM surveytbl";
+$sql = "SELECT id, firstName, lastName, description, hourlyRate, areas  FROM coachtbl";
 
 //
 // sql query
@@ -31,14 +31,18 @@ $function = "select";
 include ('mysqlquery.php');
 
 //
-// get the survey question information
+// get the coach question information
 //
 //
 // fill the array
 //
-$surveydata = array();
+$coachdata = array();
 while($r = mysqli_fetch_assoc($sql_result)) {
-    $surveydata[] = $r;
+    $areasHold = $r['areas'];
+
+    $r['areas'] = explode(",",$areasHold);
+    
+    $coachdata[] = $r;
 }
 
 //
@@ -49,6 +53,6 @@ mysqli_close($dbConn);
 //
 // pass back info
 //
-exit(json_encode($surveydata));
+exit(json_encode($coachdata));
 
 ?>

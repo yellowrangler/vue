@@ -11,7 +11,11 @@
         >{{ area }}</base-badge>
     </div>
     <div class="actions">
-      <base-button link :to="coachContactLink" mode="outline">
+      <base-button 
+        v-if="!isDetailShowing" 
+        link 
+        :to="coachContactLink" 
+        mode="outline">
         Contact
       </base-button>
       <base-button link :to="coachDetailLink">
@@ -26,17 +30,22 @@ export default {
   props: [
     'id', 'firstName', 'lastName', 'rate', 'areas'
   ],
+  data() {
+    return {
+      isDetailShowing: false
+    }
+  },
   computed: {
     fullName() {
       return this.firstName + ' ' + this.lastName;
     },
     coachContactLink() {
-      // return '/coaches/' + this.id + '/contact'; - this is one way to do it but may be too much hard coding
-       return this.$route.path + '/' + this.id + '/contact'; 
+      return '/coaches/' + this.id + '/contact'; //- this is one way to do it but may be too much hard coding
+      //  return this.$route.path + '/' + this.id + '/contact'; 
     },
     coachDetailLink() {
-      // return '/coaches/' + this.id;    ditto from above
-      return this.$route.path + '/' + this.id; 
+      return '/coaches/' + this.id;   // ditto from above
+      // return this.$route.path + '/' + this.id; 
     }
   }
 }

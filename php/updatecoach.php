@@ -10,13 +10,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
      exit;
 }
 
-
 $json = file_get_contents('php://input');
-
 $data = json_decode($json);
 
-$name = $data->name;
-$rating = $data->rating;
+// print "<br><br>json: ";	
+// print_r($json);
+// print "<br><br>data: ";	
+// print_r($data);
+// exit();
+
+$id = $data->id; 
+$firstName = $data->firstName;
+$lastName = $data->lastName;
+$description = $data->description;
+$hourlyRate = $data->hourlyRate;
+$arr = array('Hello','World!','Beautiful','Day!');
+$areas = implode(",",$data->areas);
+// $areas = $data->areas;
 
 $msg = "ok";
 //
@@ -33,14 +43,14 @@ $enterdateTS = date("Y-m-d H:i:s", strtotime($datetime));
 //
 // db connect
 //
-$modulecontent = "Unable to update survey data";
+$modulecontent = "Unable to update request data";
 include ('mysqlconnect.php');
 
 //--------------------------------------------------------------------------
-// get member survey information to see if data already present
+// get member request information to see if data already present
 //--------------------------------------------------------------------------
-$sql = "SELECT * FROM surveytbl 
-WHERE name = '$name'";
+$sql = "SELECT * FROM requesttbl 
+WHERE id = '$id'";
 
 //
 // sql query
@@ -50,7 +60,7 @@ include ('mysqlquery.php');
 
 
 //
-// get the survey data 
+// get the request data 
 //
 $count = mysqli_num_rows($sql_result);
 if ($count > 0)
@@ -58,10 +68,14 @@ if ($count > 0)
 	// 
 	// do update
 	// 
-	$sql = "UPDATE surveytbl 
-		SET rating = '$rating' 
-		WHERE name = '$name'";
-
+	$sql = "UPDATE requesttbl 
+					SET 
+					firstName='$firstName',
+					lastName='$lastName',
+					description='$description',
+					hourlyRate='$hourlyRate',
+					areas='$areas' 
+					WHERE id = $id";
 	//
 	// sql query
 	//
@@ -72,10 +86,8 @@ else
 	// 
 	// do insert
 	// 
-	$sql = "INSERT INTO surveytbl 
-		(name, rating)
-		VALUES 
-		('$name', '$rating')";
+	$sql = "INSERT INTO requesttbl(id, firstName, lastName, description, hourlyRate, areas) 
+		VALUES ('$id','$firstName','$lastName','$description','$hourlyRate','$areas')";
 
 	// print "<br><br>$sql";	
 		
@@ -85,7 +97,7 @@ else
 	$function = "insert";
 }
 
-$modulecontent = "Unable to $function surveytbl.";
+// $modulecontent = "Unable to $function requesttbl.";
 include ("mysqlquery.php");
 $sql_result_update = $sql_result;
 
