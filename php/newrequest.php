@@ -32,25 +32,27 @@ $enterdateTS = date("Y-m-d H:i:s", strtotime($datetime));
 //
 // db connect
 //
-$modulecontent = "Unable to update request data";
+$modulecontent = "Unable to open connection to db for request data";
 include ('mysqlconnect.php');
 
 // 
 // do insert
 // 
-$sql = "INSERT INTO requesttbl(id, coachId, userEmail, message) 
+$sql = "INSERT INTO requesttbl(coachId, userEmail, message) 
 	VALUES ('$coachId','$userEmail','$message')";
-
-// print "<br><br>$sql";	
-	
 //
 // sql query
 //
 $function = "insert";
 
-// $modulecontent = "Unable to $function requesttbl.";
+$modulecontent = "Unable to insert request data";
 include ("mysqlquery.php");
-$sql_result_update = $sql_result;
+$sql_result_insert = $sql_result;
+
+// 
+// get insert id
+// 
+$lastinsertid = mysqli_insert_id($dbConn);
 
 //
 // close db connection
@@ -60,5 +62,5 @@ mysqli_close($dbConn);
 //
 // pass back info
 //
-echo($msg);
+echo($lastinsertid);
 ?>

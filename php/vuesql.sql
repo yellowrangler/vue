@@ -17,6 +17,7 @@ CREATE TABLE coachtbl (
  PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
+DROP TABLE requesttbl;
 CREATE TABLE requesttbl (
  id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
  coachId varchar(20) DEFAULT NULL,

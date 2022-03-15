@@ -27,13 +27,22 @@ export default {
 
     context.commit('registerCoach', coachData);
   },
-  async loadCoaches(context) {
+  async loadCoaches(context, payload) {
+    if (!payload.forceRefresh && !context.getters.shouldUpdate) {
+      return;
+    }
+
     const url = "http://10.0.0.71/api/getcoach.php";  
     const response = await fetch(url);
     const responseData = await response.json();
+
     if (!response.ok) {
       console.log("error on post: " + response); 
-    } 
+      const error = new Error(responseData.message || 'Failed to get request');
+      console.log("loadCoaches error on get: " + error);
+
+      throw error;
+    }
 
     const coaches = [];
     for (const key in responseData) {
@@ -49,5 +58,6 @@ export default {
     }
 
     context.commit('setCoaches', coaches);
+    context.commit('setFetchTimestamp');
   }
 };
