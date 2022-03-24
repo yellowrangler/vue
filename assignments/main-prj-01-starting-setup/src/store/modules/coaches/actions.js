@@ -8,7 +8,9 @@ export default {
       areas: data.areas,
     };
 
-    const url = "http://10.0.0.71/api/updatecoach.php";  
+    const token = context.rootGetters.token;
+
+    const url = "http://10.0.0.71/api/registercoach.php?token="+token;  
     const response = await fetch(url, {
       method: 'POST',
       mode: 'no-cors',

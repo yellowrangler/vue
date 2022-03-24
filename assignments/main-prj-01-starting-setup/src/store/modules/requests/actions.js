@@ -11,20 +11,11 @@ export default {
       body: JSON.stringify(newRequest),
     });
 
-    // const response = await fetch(url, {
-    //   method: 'POST',
-    //   mode: 'no-cors',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(newRequest),
-    // });
-
     const responseData = await response.json();
     console.log('responseData :' + responseData);
 
     if (!response.ok) {
-      const error = new Error(responseData.message || 'Faoled to send request');
+      const error = new Error(responseData.message || 'Failed to send request');
       console.log("contactCoach error on post: " + error);
 
       throw error;
@@ -35,7 +26,12 @@ export default {
   },
   async fetchRequests(context) {
     const coachId = context.rootGetters.userId;
-    const url = "http://10.0.0.71/api/getcoachrequests.php?coachId="+coachId;  
+    const token = context.rootGetters.token;
+
+    console.log("coachid: "+coachId);
+    console.log("token: "+token);
+    
+    const url = "http://10.0.0.71/api/getcoachrequests.php?coachId="+coachId+"&token="+token;  
     const response = await fetch(url);
 
     const responseData = await response.json();
