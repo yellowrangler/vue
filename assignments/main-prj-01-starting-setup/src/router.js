@@ -1,5 +1,5 @@
 // import defineAsyncComponent from 'vue';
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import { publicPath } from '../vue.config.js';
 
 // import CoachesList from './pages/coaches/CoachesList.vue';
@@ -14,7 +14,7 @@ import store from './store/index.js'
 // const CoachDetail = defineAsyncComponent(() => import('./pages/coaches/CoachDetail.vue'));
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   base: publicPath,
   routes: [
     { 
