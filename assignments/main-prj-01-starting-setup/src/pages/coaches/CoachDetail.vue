@@ -36,10 +36,6 @@
 export default {
   props: ['id'],
   computed: {
-    contactLink() {
-      return this.$route.path + '/contact';
-      // return this.$route.path + '/' + this.id + '/contact';
-    },
     fullName() {
       return this.selectedCoach.firstName + ' ' + this.selectedCoach.lastName;
     },
@@ -51,7 +47,10 @@ export default {
     },
     rate(){
       return this.selectedCoach.hourlyRate;
-    }
+    },
+    contactLink() {
+      return this.$route.path + '/contact';
+    },
   },
   data() {
     return {

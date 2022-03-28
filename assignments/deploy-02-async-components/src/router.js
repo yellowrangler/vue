@@ -1,8 +1,9 @@
 import { defineAsyncComponent } from 'vue';
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
+import { publicPath } from '../vue.config.js';
 
 // import CoachDetail from './pages/coaches/CoachDetail.vue';
-import CoachesList from './pages/coaches/CoachesList.vue';
+// import CoachesList from './pages/coaches/CoachesList.vue';
 // import CoachRegistration from './pages/coaches/CoachRegistration.vue';
 // import ContactCoach from './pages/requests/ContactCoach.vue';
 // import RequestsReceived from './pages/requests/RequestsReceived.vue';
@@ -10,15 +11,15 @@ import NotFound from './pages/NotFound.vue';
 // import UserAuth from './pages/auth/UserAuth.vue';
 import store from './store/index.js';
 
-const CoachDetail = defineAsyncComponent(() =>
-  import('./pages/coaches/CoachDetail.vue')
-);
+// const CoachDetail = defineAsyncComponent(() =>
+//   import('./pages/coaches/CoachDetail.vue')
+// );
 const CoachRegistration = defineAsyncComponent(() =>
   import('./pages/coaches/CoachRegistration.vue')
 );
-const ContactCoach = defineAsyncComponent(() =>
-  import('./pages/requests/ContactCoach.vue')
-);
+// const ContactCoach = defineAsyncComponent(() =>
+//   import('./pages/requests/ContactCoach.vue')
+// );
 const RequestsReceived = defineAsyncComponent(() =>
   import('./pages/requests/RequestsReceived.vue')
 );
@@ -27,17 +28,24 @@ const UserAuth = defineAsyncComponent(() =>
 );
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
+  base: publicPath,
   routes: [
     { path: '/', redirect: '/coaches' },
-    { path: '/coaches', component: CoachesList },
-    {
-      path: '/coaches/:id',
-      component: CoachDetail,
+    { 
+      path: '/coaches', 
+      component: () => import('./pages/coaches/CoachesList.vue') 
+    },
+    { 
+      path: '/coaches/:id', 
+      component: () => import('./pages/coaches/CoachDetail.vue'), 
       props: true,
       children: [
-        { path: 'contact', component: ContactCoach } // /coaches/c1/contact
-      ]
+        { 
+          path: 'contact', 
+          component: () => import('./pages/requests/ContactCoach.vue') 
+        }
+      ] 
     },
     {
       path: '/register',

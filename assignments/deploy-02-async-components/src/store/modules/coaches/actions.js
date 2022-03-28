@@ -10,10 +10,8 @@ export default {
     };
 
     const token = context.rootGetters.token;
-
-    const response = await fetch(
-      `https://vue-http-demo-85e9e.firebaseio.com/coaches/${userId}.json?auth=` +
-        token,
+    const url = "http://10.0.0.71/api/registercoach.php?token="+token;  
+    const response = await fetch(url,
       {
         method: 'PUT',
         body: JSON.stringify(coachData)
@@ -36,9 +34,8 @@ export default {
       return;
     }
 
-    const response = await fetch(
-      `https://vue-http-demo-85e9e.firebaseio.com/coaches.json`
-    );
+    const url = "http://10.0.0.71/api/getcoach.php";  
+    const response = await fetch(url);
     const responseData = await response.json();
 
     if (!response.ok) {

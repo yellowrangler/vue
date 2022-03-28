@@ -4,8 +4,8 @@ export default {
       userEmail: payload.email,
       message: payload.message
     };
-    const response = await fetch(
-      `https://vue-http-demo-85e9e.firebaseio.com/requests/${payload.coachId}.json`,
+    const url = "http://10.0.0.71/api/newrequest.php";  
+    const response = await fetch(url,
       {
         method: 'POST',
         body: JSON.stringify(newRequest)
@@ -29,10 +29,8 @@ export default {
   async fetchRequests(context) {
     const coachId = context.rootGetters.userId;
     const token = context.rootGetters.token;
-    const response = await fetch(
-      `https://vue-http-demo-85e9e.firebaseio.com/requests/${coachId}.json?auth=` +
-        token
-    );
+    const url = "http://10.0.0.71/api/getcoachrequests.php?coachId="+coachId+"&token="+token;  
+    const response = await fetch(url);
     const responseData = await response.json();
 
     if (!response.ok) {

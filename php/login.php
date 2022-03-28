@@ -1,9 +1,9 @@
 <?php
-// header('Access-Control-Allow-Origin: *');
-// header('Access-Control-Allow-Methods: GET, POST');
-// header("Access-Control-Allow-Headers: X-Requested-With");
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST');
+header("Access-Control-Allow-Headers: X-Requested-With");
 
-//
+
 // functions
 //
 
@@ -17,7 +17,7 @@ $data = json_decode($json);
 $userEmail = $data->email;
 $password = $data->password;
 $returnSecureToken = $data->returnSecureToken;
-$expiresIn = 20000;
+$expiresIn = 2000000;
 $localid = '';
 
 $bytes = random_bytes(5);
