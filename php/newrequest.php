@@ -17,7 +17,10 @@ $coachId = $data->coachId;
 $userEmail = $data->userEmail;
 $message = $data->message;
 
-$msg = "ok";
+$response = '';
+$msg = "";
+
+
 //
 // get date time for this transaction
 //
@@ -53,6 +56,10 @@ $sql_result_insert = $sql_result;
 // get insert id
 // 
 $lastinsertid = mysqli_insert_id($dbConn);
+$response = array(
+	"name" => $lastinsertid,
+  "message" => $msg
+);
 
 //
 // close db connection
@@ -62,5 +69,5 @@ mysqli_close($dbConn);
 //
 // pass back info
 //
-echo($lastinsertid);
+echo(json_encode($response));
 ?>

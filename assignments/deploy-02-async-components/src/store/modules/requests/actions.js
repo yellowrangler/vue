@@ -4,6 +4,8 @@ export default {
       userEmail: payload.email,
       message: payload.message
     };
+    console.log("contact coach payload:"+payload);
+
     const url = "http://10.0.0.71/api/newrequest.php";  
     const response = await fetch(url,
       {
@@ -32,6 +34,8 @@ export default {
     const url = "http://10.0.0.71/api/getcoachrequests.php?coachId="+coachId+"&token="+token;  
     const response = await fetch(url);
     const responseData = await response.json();
+
+    console.log("fetchrequests coachId:"+coachId);
 
     if (!response.ok) {
       const error = new Error(

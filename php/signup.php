@@ -63,6 +63,7 @@ if ($count == 1)
 	// bye bye
 	// 
 	echo(json_encode($response));
+	exit();
 }
 
 // 

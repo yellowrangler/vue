@@ -23,7 +23,7 @@ export default {
     if (!response.ok) {
       // error ...
     }
-
+    console.log("Register responsedata ");
     context.commit('registerCoach', {
       ...coachData,
       id: userId
@@ -42,7 +42,6 @@ export default {
       const error = new Error(responseData.message || 'Failed to fetch!');
       throw error;
     }
-    console.log("Register responsedata " + responseData);
     const coaches = [];
 
     for (const key in responseData) {

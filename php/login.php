@@ -62,6 +62,7 @@ if ($count != 1)
 	// bye bye
 	// 
 	echo(json_encode($response));
+	exit();
 }
 
 $row = mysqli_fetch_assoc($sql_result);
