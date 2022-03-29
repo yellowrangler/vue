@@ -24,7 +24,6 @@ $firstName = $data->firstName;
 $lastName = $data->lastName;
 $description = $data->description;
 $hourlyRate = $data->hourlyRate;
-$arr = array('Hello','World!','Beautiful','Day!');
 $areas = implode(",",$data->areas);
 // $areas = $data->areas;
 

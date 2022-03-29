@@ -20,10 +20,13 @@ $hourlyRate = $data->hourlyRate;
 
 $areas = $data->areas;
 $seperator = ',';
-$areasStr = implode($separator, $areas);
+$areasStr = implode($seperator, $areas);
 
 $message = "";
 $response = "";
+
+// echo 'after implode ' . $areasStr;
+// exit();
 
 // 
 // db connect

@@ -42,7 +42,7 @@ export default {
       const error = new Error(responseData.message || 'Failed to fetch!');
       throw error;
     }
-
+    console.log("Register responsedata " + responseData);
     const coaches = [];
 
     for (const key in responseData) {

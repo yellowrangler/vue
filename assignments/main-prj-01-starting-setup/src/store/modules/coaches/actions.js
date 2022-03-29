@@ -25,7 +25,7 @@ export default {
       console.log("registerCoach error on post: " + response);
     }
 
-    // console.log('responseData :' + responseData);
+    console.log('register responseData :' + responseData);
 
     context.commit('registerCoach', coachData);
   },

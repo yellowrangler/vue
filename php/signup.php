@@ -18,6 +18,7 @@ $userEmail = $data->email;
 $password = $data->password;
 $returnSecureToken = $data->returnSecureToken;
 $expiresIn = 2000000;
+$role='coach';
 $localid = '';
 
 $bytes = random_bytes(5);
@@ -28,15 +29,15 @@ $message = "";
 // 
 // db connect
 //
-$modulecontent = "Unable to login for vue userEmail $userEmail.";
+$modulecontent = "Unable to signup for vue userEmail $userEmail.";
 include 'mysqlconnect.php';
 
 //---------------------------------------------------------------
-// Get memberid password for compare.
+// see if already signed up
 //---------------------------------------------------------------
 $sql = "SELECT *  
 FROM authtbl 
-WHERE email = '$userEmail' AND password = '$password'";
+WHERE email = '$userEmail'";
 
 //
 // sql query
@@ -49,13 +50,13 @@ include 'mysqlquery.php';
 //
 
 $count = mysqli_num_rows($sql_result);
-if ($count != 1)
+if ($count == 1)
 {
 	$response = array(
 		"localid" => '',
     "idToken" => '',
     "expiresin" => '',
-    "message" => "Login Error. Please try again!"
+    "message" => "You are already signd up. Please login!"
 	);
 
 	// 
@@ -64,28 +65,35 @@ if ($count != 1)
 	echo(json_encode($response));
 }
 
-$row = mysqli_fetch_assoc($sql_result);
+// 
+// insert the new coach
+// 
+$sql = "INSERT INTO authtbl
+				(
+					email, password, role, token, durration
+				) 
+				VALUES 
+				(
+					'$userEmail','$password', '$role', '$idToken','$expiresIn'
+				)";
 
-$localid = $row['id'];
+//
+// sql query
+//
+$function = "insert";
+include 'mysqlquery.php';	
+
+// 
+// get insert id
+// 
+$localid = mysqli_insert_id($dbConn);
 
 $response = array(
 	"localid" => $localid,
   "idToken" => $idToken,
   "expiresin" => $expiresIn,
-  "message" => "Login Successful!"
+  "message" => "Signin Successful!"
 );
-
-// 
-//  update aut table 
-// 
-$sql = "UPDATE authtbl 
-				SET token='$idToken', durration='$expiresIn'
-				WHERE id='$localid'";
-//
-// sql query
-//
-$function = "update";
-include 'mysqlquery.php';
 
 //
 // close db connection
